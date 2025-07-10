@@ -128,7 +128,8 @@ const Navigation = () => {
                         <AnimatePresence>
                           {isWaterTreatmentOpen && (
                             <motion.div 
-                              className="absolute left-full top-0 mt-0 w-64 bg-white shadow-xl rounded-lg border border-gray-100 z-50"
+                              className="mt-2 w-full bg-white shadow-xl rounded-lg border border-gray-100 z-40 lg:absolute lg:left-full lg:top-0 lg:mt-0 lg:w-64"
+
                               variants={dropdownVariants}
                               initial="hidden"
                               animate="visible"
@@ -267,7 +268,11 @@ const Navigation = () => {
                     animate="visible"
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Link to={item.to} className="block text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                    <Link 
+                      to={item.to} 
+                      className="block text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       {item.label}
                     </Link>
                   </motion.div>
@@ -300,27 +305,87 @@ const Navigation = () => {
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <div className="relative group/sub">
-                          <Link to="/products/water-treatment-plant" className="flex items-center justify-between px-4 py-3 text-gray-700 hover:text-blue-600">
-                            Water Treatment Plant <ChevronDown className="w-4 h-4" />
-                          </Link>
-                          <div className="absolute left-full top-0 mt-0 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 z-50">
-                            <div className="py-2">
-                              <Link to="/products/all-sources-of-water" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">All Sources of Water</Link>
-                              <Link to="/products/filtration" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Filtration</Link>
-                              <Link to="/products/clarification-system" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Clarification System</Link>
-                              <Link to="/products/demineralisation-plant" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Demineralisation Plant</Link>
-                              <Link to="/products/ultra-filtration-system" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Ultra Filtration System</Link>
-                              <Link to="/products/reverse-osmosis-system" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Reverse Osmosis System</Link>
-                              <Link to="/products/nano-filtration-system" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Nano Filtration System</Link>
-                            </div>
-                          </div>
+                        <div>
+                          <button 
+                            onClick={() => setIsWaterTreatmentOpen(!isWaterTreatmentOpen)}
+                            className="w-full text-left text-gray-700 hover:text-blue-600 flex justify-between items-center transition-colors duration-200 px-4 py-2"
+                          >
+                            Water Treatment Plant 
+                            <motion.div
+                              animate={{ rotate: isWaterTreatmentOpen ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ChevronDown className="w-4 h-4" />
+                            </motion.div>
+                          </button>
+                          <AnimatePresence>
+                            {isWaterTreatmentOpen && (
+                              <motion.div 
+                                className="ml-4 mt-2 space-y-2"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {[
+                                  { to: "/products/all-sources-of-water", label: "All Sources of Water" },
+                                  { to: "/products/filtration", label: "Filtration" },
+                                  { to: "/products/clarification-system", label: "Clarification System" },
+                                  { to: "/products/demineralisation-plant", label: "Demineralisation Plant" },
+                                  { to: "/products/ultra-filtration-system", label: "Ultra Filtration System" },
+                                  { to: "/products/reverse-osmosis-system", label: "Reverse Osmosis System" },
+                                  { to: "/products/nano-filtration-system", label: "Nano Filtration System" }
+                                ].map((item, index) => (
+                                  <motion.div
+                                    key={index}
+                                    variants={itemVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    transition={{ delay: index * 0.1 }}
+                                  >
+                                    <Link 
+                                      to={item.to} 
+                                      className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                                      onClick={() => {
+                                        setIsMenuOpen(false);
+                                        setIsProductsOpen(false);
+                                        setIsWaterTreatmentOpen(false);
+                                      }}
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  </motion.div>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
-                        <Link to="/products/effluent-treatment-plant" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Effluent Treatment Plant</Link>
-                        <Link to="/products/sewage-treatment-plant" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Sewage Treatment Plant</Link>
-                        <Link to="/products/high-purity-generation-distribution" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">High Purity Generation & Distribution System</Link>
-                        <Link to="/products/zero-liquid-discharge" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Zero Liquid Discharge (ZLD)</Link>
-                        <Link to="/products/swimming-pool-systems" className="block px-4 py-2 text-gray-700 hover:bg-blue-50">Swimming Pool Systems</Link>
+                        {[
+                          { to: "/products/effluent-treatment-plant", label: "Effluent Treatment Plant" },
+                          { to: "/products/sewage-treatment-plant", label: "Sewage Treatment Plant" },
+                          { to: "/products/high-purity-generation-distribution", label: "High Purity Generation & Distribution System" },
+                          { to: "/products/zero-liquid-discharge", label: "Zero Liquid Discharge (ZLD)" },
+                          { to: "/products/swimming-pool-systems", label: "Swimming Pool Systems" }
+                        ].map((item, index) => (
+                          <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                            transition={{ delay: (index + 7) * 0.1 }}
+                          >
+                            <Link 
+                              to={item.to} 
+                              className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setIsProductsOpen(false);
+                              }}
+                            >
+                              {item.label}
+                            </Link>
+                          </motion.div>
+                        ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -337,7 +402,11 @@ const Navigation = () => {
                     animate="visible"
                     transition={{ delay: (index + 3) * 0.1 }}
                   >
-                    <Link to={item.to} className="block text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                    <Link 
+                      to={item.to} 
+                      className="block text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       {item.label}
                     </Link>
                   </motion.div>
