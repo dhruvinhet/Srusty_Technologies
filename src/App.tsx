@@ -23,7 +23,7 @@ import UltraFiltrationSystem from "./pages/products/UltraFiltrationSystem";
 import ReverseOsmosisSystem from "./pages/products/ReverseOsmosisSystem";
 import NanoFiltrationSystem from "./pages/products/NanoFiltrationSystem";
 import HighPurityGeneration from "./pages/products/HighPurityGeneration";
-import ZeroLiquidDischarge from "./pages/products/ZeroLiquidDischarge";
+import ZeroLiquidDischarge from "./pages/products/zeroliquiddischarge";
 import SwimmingPoolSystems from "./pages/products/SwimmingPoolSystems";
 
 const queryClient = new QueryClient();
