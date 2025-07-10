@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Phone, Mail, ArrowRight } from "lucide-react";
+import logo from '../assets/logo.png';
 
 const Hero = () => {
   const containerVariants = {
@@ -112,7 +113,7 @@ const Hero = () => {
   animate="visible"
 >
   <img
-    src="/src/assets/logo.png"
+    src={logo}
     alt="Water Treatment Plant"
     className="w-full max-w-md rounded-2xl shadow-2xl border-4 border-white/10 mt-[100px]" // <- Corrected spacing
   />
